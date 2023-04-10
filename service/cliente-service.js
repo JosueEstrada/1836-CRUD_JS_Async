@@ -1,7 +1,7 @@
 console.log('client-service');
 const crearNuevaLinea = (nombre, email) => {
     const linea = document.createElement('tr');
-    const contenido =`
+    const contenido = `
         <td class="td" data-td>${nombre}</td>
         <td>${email}</td>
         <td>
@@ -28,8 +28,9 @@ const crearNuevaLinea = (nombre, email) => {
 };
 
 const table = document.querySelector('[data-table]');
-
-
+// 4 formas de escribir una promise
+// 1. Callback con promise de manera default.
+/*
 const listaClientes = () => {
     const promise = new  Promise((resolve,reject) => {
         const http = new XMLHttpRequest();
@@ -50,11 +51,24 @@ const listaClientes = () => {
     });
     return promise;
 };
+ */
+// 2. Promise con fetch API
+/*const listaClientes = () => {
+    // Genera una promesa y se retorna la respuesta en formato json
+    return fetch('http://localhost:5000/perfil').then((respuesta) => {
+        return respuesta.json();
+    });
+};*/
+// 3. Promise con fetch API en con un return
+/*const listaClientes = () => {
+    return fetch('http://localhost:5000/perfil').then((respuesta) => respuesta.json());
+}*/
+// 4. Promise con fetch API en una sola linea
+const listaClientes = () => fetch('http://localhost:5000/perfil').then(respuesta => respuesta.json());
 
-console.log(listaClientes());
 listaClientes().then((data) => {
     console.log(data);
-    data.forEach( perfil => {
+    data.forEach(perfil => {
         const nuevaLinea = crearNuevaLinea(perfil.nombre, perfil.email);
         table.appendChild(nuevaLinea);
     });
