@@ -1,33 +1,5 @@
-console.log('client-service');
-const crearNuevaLinea = (nombre, email) => {
-    const linea = document.createElement('tr');
-    const contenido = `
-        <td class="td" data-td>${nombre}</td>
-        <td>${email}</td>
-        <td>
-            <ul class="table__button-control">
-                <li>
-                    <a
-                        href="../screens/editar_cliente.html"
-                        class="simple-button simple-button--edit"
-                    >Editar</a
-                    >
-                </li>
-                <li>
-                    <button
-                        class="simple-button simple-button--delete"
-                        type="button"
-                    >
-                        Eliminar
-                    </button>
-                </li>
-            </ul>
-    `;
-    linea.innerHTML = contenido;
-    return linea;
-};
+//console.log('client-service');
 
-const table = document.querySelector('[data-table]');
 // 4 formas de escribir una promise
 // 1. Callback con promise de manera default.
 /*
@@ -66,11 +38,9 @@ const listaClientes = () => {
 // 4. Promise con fetch API en una sola linea
 const listaClientes = () => fetch('http://localhost:5000/perfil').then(respuesta => respuesta.json());
 
-listaClientes().then((data) => {
-    console.log(data);
-    data.forEach(perfil => {
-        const nuevaLinea = crearNuevaLinea(perfil.nombre, perfil.email);
-        table.appendChild(nuevaLinea);
-    });
-}).catch((error) => alert("Ocurrió un error"));
+export const clientServices = {
+    // listaClientes: listaClientes, las ultimas versiones ya esta definido clave:valor
+    listaClientes,
+};
+
 
