@@ -38,9 +38,18 @@ const listaClientes = () => {
 // 4. Promise con fetch API en una sola linea
 const listaClientes = () => fetch('http://localhost:5000/perfil').then(respuesta => respuesta.json());
 
+const crearCliente = (nombre, email) => {
+    return fetch("http://localhost:5000/perfil", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({nombre, email, id: uuid.v4()}),
+    });
+};
+
 export const clientServices = {
     // listaClientes: listaClientes, las ultimas versiones ya esta definido clave:valor
     listaClientes,
+    crearCliente,
 };
 
 
