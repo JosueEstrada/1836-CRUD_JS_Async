@@ -9,8 +9,8 @@ formulario.addEventListener('submit', (evento) => {
     console.log('formulario:' + nombre + " - " + email)
     clientServices
         .crearCliente(nombre, email)
-        .then(respuesta => {
-            console.log(respuesta);
+        .then(() => {
+            //console.log(respuesta);
             window.location.href = "../screens/registro_completado.html";
         })
         .catch(err => console.log(err));

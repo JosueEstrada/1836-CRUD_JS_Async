@@ -1,6 +1,7 @@
-import { clientServices } from "../service/cliente-service.js";
+import {clientServices} from "../service/cliente-service.js";
 
-const crearNuevaLinea = (nombre, email) => {
+const crearNuevaLinea = (nombre, email, id) => {
+    console.log(id);
     const linea = document.createElement('tr');
     const contenido = `
         <td class="td" data-td>${nombre}</td>
@@ -18,6 +19,7 @@ const crearNuevaLinea = (nombre, email) => {
                     <button
                         class="simple-button simple-button--delete"
                         type="button"
+                        id="${id}"
                     >
                         Eliminar
                     </button>
@@ -25,6 +27,18 @@ const crearNuevaLinea = (nombre, email) => {
             </ul>
     `;
     linea.innerHTML = contenido;
+    const btn = linea.querySelector('button');
+    btn.addEventListener('click', () => {
+        const id = btn.id;
+        console.log('click:', id);
+        clientServices
+            .eliminarCliente(id)
+            .then(respuesta => {
+                console.log(respuesta)
+            })
+            .catch(err => alert('Ocurrió un error'));
+    });
+    //console.log(linea.querySelector('button'));
     return linea;
 };
 
@@ -32,9 +46,14 @@ const table = document.querySelector('[data-table]');
 
 clientServices.listaClientes().then((data) => {
     console.log(data);
-    data.forEach(perfil => {
-        const nuevaLinea = crearNuevaLinea(perfil.nombre, perfil.email);
+    data.forEach((perfil) => {
+        // Destructuring
+        const {nombre, email, id} = perfil;
+        const nuevaLinea = crearNuevaLinea(nombre, email, id);
         table.appendChild(nuevaLinea);
     });
 }).catch((error) => alert("Ocurrió un error"));
 
+// const eliminarCliente = (id) => {
+//     console.log('Elimina a: ', id);
+// };

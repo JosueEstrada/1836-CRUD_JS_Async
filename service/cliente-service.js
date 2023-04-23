@@ -46,10 +46,18 @@ const crearCliente = (nombre, email) => {
     });
 };
 
+// Nueva función para eliminar cliente
+const eliminarCliente = (id) => {
+    return fetch(`http://localhost:5000/perfil/${id}`, {
+        method: "DELETE",
+    });
+};
+
 export const clientServices = {
     // listaClientes: listaClientes, las ultimas versiones ya esta definido clave:valor
     listaClientes,
     crearCliente,
+    eliminarCliente,
 };
 
 
